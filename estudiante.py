@@ -2,14 +2,12 @@ class Estudiante:
     def __init__(self, pr: str, p_m: float, p_L: float, p_NSE: float, amb : str, sec: str):
         ''' completar docstring/ cambiar custiomes de como se representan las provincias y el ambito??? '''
         self.provincia : str = pr
-        self.puntaje_matematica : float = p_m
-        self.puntaje_lengua: float = p_L
-        self.puntaje_NSE: float = p_NSE
+        self.puntaje_matematica : float = round (p_m, 2)
+        self.puntaje_lengua: float = round(p_L, 2)
+        self.puntaje_NSE: float = round(p_NSE, 2)
         self.ambito : str = amb
         self.sector : str = sec
-        provincias : dict = {
-            # for unique values in columna del dataset, appendearlas al dic y darles su valor correspondiente de str
-        }
+       
 
 
     def __repr__(self) -> str:
