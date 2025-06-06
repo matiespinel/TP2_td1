@@ -7,6 +7,9 @@ class Estudiante:
         self.puntaje_NSE: float = p_NSE
         self.ambito : str = amb
         self.sector : str = sec
+        provincias : dict = {
+            # for unique values in columna del dataset, appendearlas al dic y darles su valor correspondiente de str
+        }
 
 
     def __repr__(self) -> str:
