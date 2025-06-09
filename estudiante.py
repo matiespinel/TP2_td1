@@ -1,6 +1,13 @@
 class Estudiante:
     def __init__(self, pr: str, p_m: float, p_L: float, p_NSE: float, amb : str, sec: str):
-        ''' completar docstring/ cambiar custiomes de como se representan las provincias y el ambito??? '''
+        ''' La clases estudiante contiene: 
+              - proviencia: la proviencia del estudiante
+              - puntaje_matematica: puntaje del estudiante en matematica
+              - puntaje_lengua: puntaje del estudiante en lengua
+              - puntaje_NSE: puntaje del nivel socioeconomico
+              - Ambito: ambito de la escuela
+              - Sector: sector de la escuela 
+              '''
         self.provincia : str = pr
         self.puntaje_matematica : float = round (p_m, 2)
         self.puntaje_lengua: float = round(p_L, 2)
@@ -11,13 +18,16 @@ class Estudiante:
 
 
     def __repr__(self) -> str:
-        ''' completar docstring '''
+        ''' devuelve una representación como string del estudiante e, con el siguiente formato: <Mat:FLOAT, Len:FLOAT, NSE:FLOAT,
+AMBITO, SECTOR, PROVINCIA>, AMBITO es un string ('Rural' o 'Urbano'), SECTOR es un string ('Estatal' o
+'Privado'), y PROVINCIA es un string ('MZA', 'SFE', 'CHU', etc.) '''
         return "Mat " + self.puntaje_matematica + " Leng " + self.puntaje_lengua + " NSE " + self.puntaje_NSE + self.ambito + self.sector + self.provincia
 
 
 
     def __eq__(self, otro: "Estudiante") -> bool:
-        ''' completar docstring '''
+        ''' devuelve True si e1 y e2 tienen provincia, puntajes, ámbito y sector iguales; y
+False en caso contrario '''
         leng_ig : bool = False
         nse_ig : bool = False
         mat_ig : bool = False
