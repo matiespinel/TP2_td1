@@ -9,9 +9,9 @@ class Estudiante:
               - Sector: sector de la escuela 
               '''
         self.provincia : str = pr
-        self.puntaje_matematica : float = round (p_m, 2)
-        self.puntaje_lengua: float = round(p_L, 2)
-        self.puntaje_NSE: float = round(p_NSE, 2)
+        self.puntaje_matematica : float = p_m
+        self.puntaje_lengua: float = p_L
+        self.puntaje_NSE: float = p_NSE
         self.ambito : str = amb
         self.sector : str = sec
        
@@ -21,24 +21,23 @@ class Estudiante:
         ''' devuelve una representación como string del estudiante e, con el siguiente formato: <Mat:FLOAT, Len:FLOAT, NSE:FLOAT,
 AMBITO, SECTOR, PROVINCIA>, AMBITO es un string ('Rural' o 'Urbano'), SECTOR es un string ('Estatal' o
 'Privado'), y PROVINCIA es un string ('MZA', 'SFE', 'CHU', etc.) '''
-        return "Mat " + self.puntaje_matematica + " Leng " + self.puntaje_lengua + " NSE " + self.puntaje_NSE + self.ambito + self.sector + self.provincia
+        return "Mat " + str(round(self.puntaje_matematica,2)) + " Leng " + str(round(self.puntaje_lengua,2)) + " NSE " + str(round(self.puntaje_NSE, 2)) + " " + self.ambito + " " + self.sector + " " + self.provincia
 
 
 
     def __eq__(self, otro: "Estudiante") -> bool:
-        ''' devuelve True si e1 y e2 tienen provincia, puntajes, ámbito y sector iguales; y
-False en caso contrario '''
-        leng_ig : bool = False
-        nse_ig : bool = False
-        mat_ig : bool = False
-        if self.puntaje_matematica - otro.puntaje_matematica < 0.001:
-            mat_ig = True
-        if self.puntaje_lengua - otro.puntaje_lengua < 0.001:
-            leng_ig = True
-        if self.puntaje_NSE - otro.puntaje_NSE < 0.001:
-            nse_ig = True
+        ''' Devuelve True si e1 y e2 tienen provincia, puntajes, ámbito y sector iguales;
+    y False en caso contrario '''
+    
+        mat_diff = self.puntaje_matematica - otro.puntaje_matematica
+        leng_diff = self.puntaje_lengua - otro.puntaje_lengua
+        nse_diff = self.puntaje_NSE - otro.puntaje_NSE
+
+        mat_ig = -0.001 < mat_diff < 0.001
+        leng_ig = -0.001 < leng_diff < 0.001
+        nse_ig = -0.001 < nse_diff < 0.001
+
         amb_ig = self.ambito == otro.ambito
         sec_ig = self.sector == otro.sector
         prov_ig = self.provincia == otro.provincia
         return mat_ig and leng_ig and nse_ig and amb_ig and sec_ig and prov_ig
-
