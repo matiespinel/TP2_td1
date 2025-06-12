@@ -7,6 +7,9 @@ class Resumen:
         self.promedio_matematica : float = 0
         self.promedio_lengua : float = 0
         self.promedio_NSE : float = 0
+        self.provincias : set[str] = set(e.provincia for e in self.est)
+        self.proporcion_ambito_rural : float = 0
+        self.proporcion_sector_estatal : float = 0
         for es in est:
             self.promedio_matematica += es.puntaje_matematica
             self.promedio_lengua += es.puntaje_lengua
@@ -18,8 +21,8 @@ class Resumen:
         self.promedio_matematica = self.promedio_matematica / self.cantidad
         self.promedio_lengua  = self.promedio_lengua / self.cantidad
         self.promedio_NSE  = self.promedio_NSE/ self.cantidad
-        self.proporcion_ambito_rural : float = self.proporcion_ambito_rural / self.cantidad
-        self.proporcion_sector_estatal : float = self.proporcion_sector_estatal / self.cantidad
+        self.proporcion_ambito_rural  = self.proporcion_ambito_rural / self.cantidad
+        self.proporcion_sector_estatal  = self.proporcion_sector_estatal / self.cantidad
     def __repr__(self) -> str:
         '''devuelve una representación como string del resumen r, con el siguiente formato:
 <Mat:FLOAT, Len:FLOAT, NSE:FLOAT, Rural:FLOAT, Estado:FLOAT, N:INT '''
@@ -55,12 +58,28 @@ diferencia absoluta entre ellos es menor que 0.001. '''
         """
         conteo_mate : int = 0
         conteo_leng : int = 0
-        for e in self.est: 
+        for e in self.est: #en el caso de que sean iguales los puntajes (poco posible) se le suma 1 a ambos
             if e.puntaje_matematica >= bara and e.puntaje_lengua <= e.puntaje_matematica:
                 conteo_mate += 1
             if e.puntaje_lengua >= bara and e.puntaje_lengua >= e.puntaje_matematica:
                 conteo_leng += 1
         return "Matemaica: " + str(conteo_mate) + ", Lengua: " + str(conteo_leng)
+    
+    def mejor_materia_por_provincia(self, bara : int) -> dict[str, str]:
+        """Devuelve un diccionario que tiene como key la provincia y de value un string con el conteo total de alumnos que tengan como mejor puntaje matematica y lengua, 
+        con el siguiente formato: Matemaica: INT,  Lengua: INT """
+        res : dict[str, str] = {}
+        for prov in self.provincias:
+            est : list[Estudiante] = [e for e in self.est if e.provincia == prov]
+            conteo_mate : int = 0
+            conteo_leng : int = 0
+            for e in est:
+                if e.puntaje_matematica >= bara and e.puntaje_lengua <= e.puntaje_matematica:
+                    conteo_mate += 1
+                if e.puntaje_lengua >= bara and e.puntaje_lengua >= e.puntaje_matematica:
+                    conteo_leng += 1
+            res[prov] = "Matemaica: " + str(conteo_mate) + ", Lengua: " + str(conteo_leng)
+        return res
             
 
 
