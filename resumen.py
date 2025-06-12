@@ -2,6 +2,7 @@ from estudiante import Estudiante
 class Resumen:
     def __init__(self, est : list[Estudiante]):
         '''  '''
+        self.est : list[Estudiante] = est 
         self.cantidad : int = len(est)
         self.promedio_matematica : float = 0
         self.promedio_lengua : float = 0
@@ -48,6 +49,19 @@ diferencia absoluta entre ellos es menor que 0.001. '''
 
         
         return mat_ig and leng_ig and nse_ig and cant_ig and propor_amb_r and propor_sec_est
+    def mejor_materia(self, bara : int) -> str:
+        """ Devuelve un string con el conteo total de alumnos que tengan como mejor puntaje matematica y lengua, 
+        con el siguiente formato: Matemaica: INT,  Lengua: INT (se puede aplicar una bara que permita dejar sin contar los puntajes debajo de ella)
+        """
+        conteo_mate : int = 0
+        conteo_leng : int = 0
+        for e in self.est: 
+            if e.puntaje_matematica >= bara and e.puntaje_lengua <= e.puntaje_matematica:
+                conteo_mate += 1
+            if e.puntaje_lengua >= bara and e.puntaje_lengua >= e.puntaje_matematica:
+                conteo_leng += 1
+        return "Matemaica: " + str(conteo_mate) + ", Lengua: " + str(conteo_leng)
+            
 
 
 
