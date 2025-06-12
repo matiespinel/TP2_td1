@@ -33,14 +33,19 @@ diferencia absoluta entre ellos es menor que 0.001. '''
         leng_ig : bool = False
         nse_ig : bool = False
         mat_ig : bool = False
-        propor_amb_r : bool = self.proporcion_ambito_rural == otro.proporcion_ambito_rural #arreglar
-        propor_sec_est : bool = self.proporcion_sector_estatal == otro.proporcion_sector_estatal #arreglar
-        if self.promedio_matematica - otro.promedio_matematica < 0.001:
-            mat_ig = True
-        if self.promedio_lengua - otro.promedio_lengua < 0.001:
-            leng_ig = True
-        if self.promedio_NSE - otro.promedio_NSE < 0.001:
-            nse_ig = True
+        propor_amb_r : bool = False
+        amb_rur : float = self.proporcion_ambito_rural - otro.proporcion_ambito_rural 
+        propor_sec_est : bool = False
+        sec_ests: float = self.proporcion_sector_estatal - otro.proporcion_sector_estatal 
+        propor_amb_r = -0.001 < amb_rur < 0.001
+        propor_sec_est = -0.001 < sec_ests < 0.001
+        mat_diff = self.promedio_matematica - otro.promedio_matematica
+        leng_diff = self.promedio_lengua - otro.promedio_lengua
+        nse_diff = self.promedio_NSE - otro.promedio_NSE
+        mat_ig = -0.001 < mat_diff < 0.001
+        leng_ig = -0.001 < leng_diff < 0.001
+        nse_ig = -0.001 < nse_diff < 0.001
+
         
         return mat_ig and leng_ig and nse_ig and cant_ig and propor_amb_r and propor_sec_est
 
