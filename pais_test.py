@@ -48,6 +48,6 @@ class TestPais(unittest.TestCase):
         self.pais.exportar_por_provincias("test_salida.csv", {"BA", "MZA"})
         with open("test_salida.csv", "r") as f:
             lineas = f.readlines()
-        self.assertGreaterEqual(len(lineas), 2
+        self.assertGreaterEqual(len(lineas), 2)
 
 unittest.main()

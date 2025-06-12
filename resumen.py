@@ -2,6 +2,7 @@ from estudiante import Estudiante
 class Resumen:
     def __init__(self, est : list[Estudiante]):
         '''  '''
+        self.est : list[Estudiante] = est 
         self.cantidad : int = len(est)
         self.promedio_matematica : float = 0
         self.promedio_lengua : float = 0
@@ -33,16 +34,34 @@ diferencia absoluta entre ellos es menor que 0.001. '''
         leng_ig : bool = False
         nse_ig : bool = False
         mat_ig : bool = False
-        propor_amb_r : bool = self.proporcion_ambito_rural == otro.proporcion_ambito_rural #arreglar
-        propor_sec_est : bool = self.proporcion_sector_estatal == otro.proporcion_sector_estatal #arreglar
-        if self.promedio_matematica - otro.promedio_matematica < 0.001:
-            mat_ig = True
-        if self.promedio_lengua - otro.promedio_lengua < 0.001:
-            leng_ig = True
-        if self.promedio_NSE - otro.promedio_NSE < 0.001:
-            nse_ig = True
+        propor_amb_r : bool = False
+        amb_rur : float = self.proporcion_ambito_rural - otro.proporcion_ambito_rural 
+        propor_sec_est : bool = False
+        sec_ests: float = self.proporcion_sector_estatal - otro.proporcion_sector_estatal 
+        propor_amb_r = -0.001 < amb_rur < 0.001
+        propor_sec_est = -0.001 < sec_ests < 0.001
+        mat_diff = self.promedio_matematica - otro.promedio_matematica
+        leng_diff = self.promedio_lengua - otro.promedio_lengua
+        nse_diff = self.promedio_NSE - otro.promedio_NSE
+        mat_ig = -0.001 < mat_diff < 0.001
+        leng_ig = -0.001 < leng_diff < 0.001
+        nse_ig = -0.001 < nse_diff < 0.001
+
         
         return mat_ig and leng_ig and nse_ig and cant_ig and propor_amb_r and propor_sec_est
+    def mejor_materia(self, bara : int) -> str:
+        """ Devuelve un string con el conteo total de alumnos que tengan como mejor puntaje matematica y lengua, 
+        con el siguiente formato: Matemaica: INT,  Lengua: INT (se puede aplicar una bara que permita dejar sin contar los puntajes debajo de ella)
+        """
+        conteo_mate : int = 0
+        conteo_leng : int = 0
+        for e in self.est: 
+            if e.puntaje_matematica >= bara and e.puntaje_lengua <= e.puntaje_matematica:
+                conteo_mate += 1
+            if e.puntaje_lengua >= bara and e.puntaje_lengua >= e.puntaje_matematica:
+                conteo_leng += 1
+        return "Matemaica: " + str(conteo_mate) + ", Lengua: " + str(conteo_leng)
+            
 
 
 
