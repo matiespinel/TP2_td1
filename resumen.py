@@ -22,7 +22,7 @@ class Resumen:
     def __repr__(self) -> str:
         '''devuelve una representación como string del resumen r, con el siguiente formato:
 <Mat:FLOAT, Len:FLOAT, NSE:FLOAT, Rural:FLOAT, Estado:FLOAT, N:INT '''
-        return "Mat : " + round (self.promedio_matematica, 2) + " Leng : " + round(self.promedio_lengua, 2) + " NSE : " + round(self.promedio_NSE, 2) + " Rural : " + round(self.proporcion_ambito_rural, 2) + " Estado : " + round(self.proporcion_sector_estatal, 2) + " N : " + self.cantidad
+        return "Mat : " + str(round (self.promedio_matematica, 2)) + " Leng : " + str(round(self.promedio_lengua, 2)) + " NSE : " + str(round(self.promedio_NSE, 2)) + " Rural : " + str(round(self.proporcion_ambito_rural, 2)) + " Estado : " + str(round(self.proporcion_sector_estatal, 2)) + " N : " + str(self.cantidad)
  
 
     def __eq__(self, otro: "Resumen") -> bool:
