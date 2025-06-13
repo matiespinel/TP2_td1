@@ -14,10 +14,10 @@ class Resumen:
             self.promedio_matematica += es.puntaje_matematica
             self.promedio_lengua += es.puntaje_lengua
             self.promedio_NSE += es.puntaje_NSE
-            if es.ambito == "Urbano":
-                self.proporcion_ambito_rural += self.proporcion_ambito_rural
+            if es.ambito == "Rural":
+                self.proporcion_ambito_rural += 1
             if es.sector == "Estatal":
-                self.proporcion_sector_estatal += self.proporcion_sector_estatal
+                self.proporcion_sector_estatal += 1
         self.promedio_matematica = self.promedio_matematica / self.cantidad
         self.promedio_lengua  = self.promedio_lengua / self.cantidad
         self.promedio_NSE  = self.promedio_NSE/ self.cantidad
@@ -27,7 +27,10 @@ class Resumen:
         '''devuelve una representación como string del resumen r, con el siguiente formato:
 <Mat:FLOAT, Len:FLOAT, NSE:FLOAT, Rural:FLOAT, Estado:FLOAT, N:INT '''
         return "Mat : " + str(round (self.promedio_matematica, 2)) + " Leng : " + str(round(self.promedio_lengua, 2)) + " NSE : " + str(round(self.promedio_NSE, 2)) + " Rural : " + str(round(self.proporcion_ambito_rural, 2)) + " Estado : " + str(round(self.proporcion_sector_estatal, 2)) + " N : " + str(self.cantidad)
- 
+    def __add__(self, otro: "Resumen") -> "Resumen":
+        """suma 2 resumenes y devuelve los valores de ambos en conjuntos"""
+        est : list[Estudiante] = self.est + otro.est
+        return Resumen(est)
 
     def __eq__(self, otro: "Resumen") -> bool:
         ''' devuelve True si r1 y r2 tienen cantidad, promedios y proporciones iguales; y
@@ -54,7 +57,7 @@ diferencia absoluta entre ellos es menor que 0.001. '''
         return mat_ig and leng_ig and nse_ig and cant_ig and propor_amb_r and propor_sec_est
     def mejor_materia(self, bara : int) -> str:
         """ Devuelve un string con el conteo total de alumnos que tengan como mejor puntaje matematica y lengua, 
-        con el siguiente formato: Matemaica: INT,  Lengua: INT (se puede aplicar una bara que permita dejar sin contar los puntajes debajo de ella)
+        con el siguiente formato: Matematica: INT,  Lengua: INT (se puede aplicar una bara que permita dejar sin contar los puntajes debajo de ella)
         """
         conteo_mate : int = 0
         conteo_leng : int = 0
@@ -63,11 +66,13 @@ diferencia absoluta entre ellos es menor que 0.001. '''
                 conteo_mate += 1
             if e.puntaje_lengua >= bara and e.puntaje_lengua >= e.puntaje_matematica:
                 conteo_leng += 1
-        return "Matemaica: " + str(conteo_mate) + ", Lengua: " + str(conteo_leng)
+        return "Matematica: " + str(conteo_mate) + ", Lengua: " + str(conteo_leng)
+    
+    
     
     def mejor_materia_por_provincia(self, bara : int) -> dict[str, str]:
         """Devuelve un diccionario que tiene como key la provincia y de value un string con el conteo total de alumnos que tengan como mejor puntaje matematica y lengua, 
-        con el siguiente formato: Matemaica: INT,  Lengua: INT """
+        con el siguiente formato: Matematica: INT,  Lengua: INT """
         res : dict[str, str] = {}
         for prov in self.provincias:
             est : list[Estudiante] = [e for e in self.est if e.provincia == prov]
@@ -78,7 +83,7 @@ diferencia absoluta entre ellos es menor que 0.001. '''
                     conteo_mate += 1
                 if e.puntaje_lengua >= bara and e.puntaje_lengua >= e.puntaje_matematica:
                     conteo_leng += 1
-            res[prov] = "Matemaica: " + str(conteo_mate) + ", Lengua: " + str(conteo_leng)
+            res[prov] = "Matematica: " + str(conteo_mate) + ", Lengua: " + str(conteo_leng)
         return res
             
 

@@ -2,12 +2,10 @@ import unittest
 # Importamos el codigo a testear.
 from pais import Pais
 class TestPais(unittest.TestCase):
-    
-    def setup(self):
+    def setUp(self):
         """Se ejecuta antes de cada test."""
         self.pais = Pais("data/Aprender2023_curado.csv")
 
-class TestPais(unittest.TestCase):
     def test_tamano_total(self):
         """Testea que tamano() devuelva la cantidad esperada."""
         self.assertEqual(self.pais.tamano(), 10) 
