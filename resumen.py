@@ -1,28 +1,42 @@
 from estudiante import Estudiante
 class Resumen:
     def __init__(self, est : list[Estudiante]):
-        '''  '''
+        '''  Se inicializa el objeeto resumen con una lista de estudiantes de la cual se sacan los siguientes resultados"
+        - cantidad
+        - promedio_matematica
+        - promedio_lengua
+        - promedio_NSE
+        - proporcion_ambito_rural
+        - proporcion_sector_estatal
+        '''
         self.est : list[Estudiante] = est 
         self.cantidad : int = len(est)
-        self.promedio_matematica : float = 0
-        self.promedio_lengua : float = 0
-        self.promedio_NSE : float = 0
-        self.provincias : set[str] = set(e.provincia for e in self.est)
-        self.proporcion_ambito_rural : float = 0
-        self.proporcion_sector_estatal : float = 0
-        for es in est:
-            self.promedio_matematica += es.puntaje_matematica
-            self.promedio_lengua += es.puntaje_lengua
-            self.promedio_NSE += es.puntaje_NSE
-            if es.ambito == "Rural":
-                self.proporcion_ambito_rural += 1
-            if es.sector == "Estatal":
-                self.proporcion_sector_estatal += 1
-        self.promedio_matematica = self.promedio_matematica / self.cantidad
-        self.promedio_lengua  = self.promedio_lengua / self.cantidad
-        self.promedio_NSE  = self.promedio_NSE/ self.cantidad
-        self.proporcion_ambito_rural  = self.proporcion_ambito_rural / self.cantidad
-        self.proporcion_sector_estatal  = self.proporcion_sector_estatal / self.cantidad
+        if self.cantidad > 0: 
+            self.promedio_matematica : float = 0
+            self.promedio_lengua : float = 0
+            self.promedio_NSE : float = 0
+            self.provincias : set[str] = set(e.provincia for e in self.est)
+            self.proporcion_ambito_rural : float = 0
+            self.proporcion_sector_estatal : float = 0
+            for es in est:
+                self.promedio_matematica += es.puntaje_matematica
+                self.promedio_lengua += es.puntaje_lengua
+                self.promedio_NSE += es.puntaje_NSE
+                if es.ambito == "Rural":
+                    self.proporcion_ambito_rural += 1
+                if es.sector == "Estatal":
+                    self.proporcion_sector_estatal += 1
+            self.promedio_matematica = self.promedio_matematica / self.cantidad
+            self.promedio_lengua  = self.promedio_lengua / self.cantidad
+            self.promedio_NSE  = self.promedio_NSE/ self.cantidad
+            self.proporcion_ambito_rural  = self.proporcion_ambito_rural / self.cantidad
+            self.proporcion_sector_estatal  = self.proporcion_sector_estatal / self.cantidad
+        else: #por si es 0, y no dividir por 0 
+            self.promedio_matematica = 0
+            self.promedio_lengua = 0
+            self.promedio_NSE = 0
+            self.proporcion_ambito_rural = 0
+            self.proporcion_sector_estatal = 0
     def __repr__(self) -> str:
         '''devuelve una representación como string del resumen r, con el siguiente formato:
 <Mat:FLOAT, Len:FLOAT, NSE:FLOAT, Rural:FLOAT, Estado:FLOAT, N:INT '''

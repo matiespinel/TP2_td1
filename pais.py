@@ -15,9 +15,9 @@ class Pais:
         f = open(archivo_csv)
         for linea in csv.DictReader(f):
             prov: str = linea["provincia"]
-            mat: float = float(linea["puntaje_matematica"])
-            leng: float = float(linea["puntaje_lengua"])
-            nse: float = float(linea["puntaje_nse"])
+            mat: float = float(linea["mpuntaje"])
+            leng: float = float(linea["lpuntaje"])
+            nse: float = float(linea["NSE_puntaje"])
             amb: str = linea["ambito"]
             sec: str = linea["sector"]
 
@@ -97,4 +97,27 @@ class Pais:
                     str(round(resumen.promedio_NSE, 2)) + "," +
                     str(round(resumen.proporcion_ambito_rural, 2)) + "," +
                     str(round(resumen.proporcion_sector_estatal, 2)) + "\n")
-            archivo.write(linea)
+                archivo.write(linea)
+
+
+
+    def mejor_materia_por_provincia(self, umbral: float, cantidad: int) -> dict[str, str]:
+        """
+        Devuelve un diccionario con, por provincia, la cantidad de estudiantes que superan el umbral dado en matemática y lengua. 
+        Si no se especifica la cantidad poner 0, en caso de querer especificarla poner el numero.
+
+        """
+        conteo: dict[str, dict[str, int]] = {}
+        if cantidad > 0:
+            estudiantes = self.estudiantes[:cantidad] 
+        else:
+            estudiantes = self.estudiantes
+        for est in estudiantes:
+            prov = est.provincia
+            if prov not in conteo:
+                conteo[prov] = {"mat": 0, "len": 0}
+            if est.puntaje_matematica > umbral and est.puntaje_matematica > est.puntaje_lengua:
+                conteo[prov]["mat"] += 1
+            if est.puntaje_lengua > umbral and est.puntaje_lengua > est.puntaje_matematica:
+                conteo[prov]["len"] += 1
+        return conteo

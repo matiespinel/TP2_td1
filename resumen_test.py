@@ -24,12 +24,16 @@ class TestResumen(unittest.TestCase):
         self.e12 = Estudiante("SFE",520.0,490.0,0.1,"Urbano","Estatal")
         self.e13 = Estudiante("BA",480.0,500.0,0.3,"Rural","Estatal")
         self.estudiantes3 = [self.e8, self.e9, self.e10, self.e11, self.e12, self.e13]
-        
+        self.estudiantes4 = []
+        self.resumen4 = Resumen(self.estudiantes4)
+     
 
 
     def test_cantidad_correcta(self):
         self.assertEqual(self.resumen1.cantidad, 3)
         self.assertEqual(self.resumen2.cantidad, 4)
+        self.assertEqual(self.resumen4.cantidad, 0)
+
 
 
     def test_promedios(self):
@@ -39,12 +43,19 @@ class TestResumen(unittest.TestCase):
         self.assertAlmostEqual(self.resumen2.promedio_matematica, (600+520+480+600)/4)
         self.assertAlmostEqual(self.resumen2.promedio_lengua, (480+490+500+480)/4)
         self.assertAlmostEqual(self.resumen2.promedio_NSE, (0.2+0.1+0.3+0.2)/4)
+        self.assertAlmostEqual(self.resumen4.promedio_matematica, 0)
+        self.assertAlmostEqual(self.resumen4.promedio_lengua, 0)
+        self.assertAlmostEqual(self.resumen4.promedio_NSE, 0)
+
 
     def test_proporciones(self):
         self.assertAlmostEqual(self.resumen1.proporcion_ambito_rural, 2/3)
         self.assertAlmostEqual(self.resumen1.proporcion_sector_estatal, 2/3)
         self.assertAlmostEqual(self.resumen2.proporcion_ambito_rural, 3/4)
         self.assertAlmostEqual(self.resumen2.proporcion_sector_estatal, 1/4)
+        self.assertAlmostEqual(self.resumen4.proporcion_ambito_rural, 0)
+        self.assertAlmostEqual(self.resumen4.proporcion_sector_estatal, 0)
+
 
 
     def test_repr(self):
@@ -52,6 +63,9 @@ class TestResumen(unittest.TestCase):
         self.assertEqual(repr_result, "Mat : " + str(round (self.resumen1.promedio_matematica, 2)) + " Leng : " + str(round(self.resumen1.promedio_lengua, 2)) + " NSE : " + str(round(self.resumen1.promedio_NSE, 2)) + " Rural : " + str(round(self.resumen1.proporcion_ambito_rural, 2)) + " Estado : " + str(round(self.resumen1.proporcion_sector_estatal, 2)) + " N : " + str(self.resumen1.cantidad))
         repr_result = repr(self.resumen2)
         self.assertEqual(repr_result, "Mat : " + str(round (self.resumen2.promedio_matematica, 2)) + " Leng : " + str(round(self.resumen2.promedio_lengua, 2)) + " NSE : " + str(round(self.resumen2.promedio_NSE, 2)) + " Rural : " + str(round(self.resumen2.proporcion_ambito_rural, 2)) + " Estado : " + str(round(self.resumen2.proporcion_sector_estatal, 2)) + " N : " + str(self.resumen2.cantidad))
+        repr_result = repr(self.resumen4)
+        self.assertEqual(repr_result,  "Mat : " + str(round (self.resumen4.promedio_matematica, 2)) + " Leng : " + str(round(self.resumen4.promedio_lengua, 2)) + " NSE : " + str(round(self.resumen4.promedio_NSE, 2)) + " Rural : " + str(round(self.resumen4.proporcion_ambito_rural, 2)) + " Estado : " + str(round(self.resumen4.proporcion_sector_estatal, 2)) + " N : " + str(self.resumen4.cantidad))
+
 
     def test_igualdad(self):
         otro = Resumen(self.estudiantes)
