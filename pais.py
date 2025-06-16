@@ -71,7 +71,7 @@ class Pais:
                     valor = e.puntaje_matematica
                 elif categoria == "len":
                     valor = e.puntaje_lengua
-                elif categoria == "nse":
+                else:
                     valor = e.puntaje_NSE
                 if x <= valor < y:
                     contador = contador + 1
