@@ -55,7 +55,7 @@ class TestPais(unittest.TestCase):
             lineas = f.readlines()
         self.assertGreaterEqual(len(lineas), 2)
     def test_mejor_materia_por_provincia(self):
-        """Testea conteo de alumnos con puntajes mayores al umbral por provincia (primeros 40 en este caso)."""
+        """Testea conteo de alumnos con puntajes mayores al umbral por provincia (primeros 40 en este caso (primeros 40 del documento completo asignado para este trabajo))."""
         esperado = {'MZA': {'mat': 11, 'len': 3}, 'MIS': {'mat': 1, 'len': 0}}
         self.assertEqual(self.pais.mejor_materia_por_provincia(500, cantidad=40), esperado)
 
